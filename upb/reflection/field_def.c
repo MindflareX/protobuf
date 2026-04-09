@@ -721,7 +721,10 @@ static void _upb_FieldDef_Create(upb_DefBuilder* ctx, const char* prefix,
   f->sub.unresolved = field_proto;
 
   if (google_protobuf_FieldDescriptorProto_has_oneof_index(field_proto)) {
+    fprintf(stderr, "!!! DEBUG: field %s is in a oneof (%d)\n", f->full_name,
+            upb_FieldDef_Label(f));
     if (upb_FieldDef_Label(f) != kUpb_Label_Optional) {
+      fprintf(stderr, "!!! DEBUG: field %s is not optional\n", f->full_name);
       _upb_DefBuilder_Errf(ctx, "fields in oneof must have OPTIONAL label (%s)",
                            f->full_name);
     }
